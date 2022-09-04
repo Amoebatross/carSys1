@@ -6,6 +6,7 @@ import com.jkxy.car.api.utils.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -88,15 +89,32 @@ public class CarController {
 
     //购买车辆 购买后车辆减少
     @PostMapping("buyCar/{id}/{num}")
-    public JSONResult buyCar(int id,int num) throws Exception {
-        carService.buyCar(id,num);
+    @GetMapping("buyCar")
+    public JSONResult buyCar(String carType, int quantity) {
+        List<Car> typeCars = carService.findByCarType(carType);
+        int realQuantity = 0;
+        for (int i = 0; i < typeCars.size(); i++){
+            realQuantity += typeCars.get(i).getCounts();
+            if(realQuantity > quantity){
+                typeCars.get(i).setCounts(realQuantity - quantity);
+                carService.updateById(typeCars.get(i));
+                return JSONResult.ok();
+            }else {
+                if(i < typeCars.size() - 1){
+                    typeCars.get(i).setCounts(0);
+                    carService.updateById(typeCars.get(i));
+                }else {
+                    return JSONResult.errorException( "库存不足");
+                }
+            }
+        }
         return JSONResult.ok();
     }
 
     //对品牌车辆模糊查询
-    @PostMapping("findByBrand/{brand}/{start}/{end}")
-    public JSONResult findByBrand(String brand,int start,int end) {
-        List<Car> cars = carService.findByBrand(brand,start,end);
+    @GetMapping("findByBrand/{brand}/{start}/{end}")
+    public JSONResult findByBrand(String carName, int pageSize, int pageNumber) {
+        List<Car> cars = carService.findByBrand(carName, (pageNumber - 1) * pageSize, pageSize);
         return JSONResult.ok(cars);
     }
 }

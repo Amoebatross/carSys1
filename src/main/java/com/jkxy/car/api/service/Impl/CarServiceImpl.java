@@ -45,24 +45,12 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void buyCar(int id,int num) throws Exception {
-        Car car=carDao.findById(id);
-        if(car.getCounts()<num){
-            throw new Exception("库存不足");
-        }
-        else{
-            try {
-                car.setCounts(car.getCounts() - num);
-                carDao.buyCar(car);
-            }
-            catch (Exception e){
-                throw new Exception("购买失败");
-            }
-        }
+    public List<Car> findByCarType(String carType) {
+        return carDao.findByCarType(carType);
     }
 
     @Override
-    public List<Car> findByBrand(String brand, int start, int end) {
-        return carDao.findByBrand(brand, start-1, end-1);
+    public List<Car> findByBrand(String carName, int start, int count) {
+        return carDao.findByBrand(carName, start, count);
     }
 }

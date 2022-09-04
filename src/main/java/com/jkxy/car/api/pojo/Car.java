@@ -58,13 +58,6 @@ public class Car {
         this.counts = counts;
     }
 
-    public int getFlag() {
-        return flag;
-    }
-
-    public void setFlag(int flag) {
-        this.flag = flag;
-    }
 
     @Override
     public String toString() {

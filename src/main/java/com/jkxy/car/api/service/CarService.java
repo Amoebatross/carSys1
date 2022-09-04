@@ -19,7 +19,7 @@ public interface CarService {
 
     void insertCar(Car car);
 
-    void buyCar(int id,int num) throws Exception;
+    List<Car> findByCarType(String carType);
 
-    List<Car> findByBrand(String brand, int start, int end);
+    List<Car> findByBrand(String carName, int start, int count);
 }
