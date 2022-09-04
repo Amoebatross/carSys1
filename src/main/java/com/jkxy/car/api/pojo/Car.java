@@ -7,6 +7,8 @@ public class Car {
     private String carType;
     private String price;
     private String carSeries;
+    private int counts;
+    private int flag;
 
     public int getId() {
         return id;
@@ -46,6 +48,22 @@ public class Car {
 
     public void setCarSeries(String carSeries) {
         this.carSeries = carSeries;
+    }
+
+    public int getCounts() {
+        return counts;
+    }
+
+    public void setCounts(int counts) {
+        this.counts = counts;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
     }
 
     @Override

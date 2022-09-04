@@ -85,4 +85,18 @@ public class CarController {
         carService.insertCar(car);
         return JSONResult.ok();
     }
+
+    //购买车辆 购买后车辆减少
+    @PostMapping("buyCar")
+    public JSONResult buyCar(int id,int num) throws Exception {
+        carService.buyCar(id,num);
+        return JSONResult.ok();
+    }
+
+    //对品牌车辆模糊查询
+    @PostMapping("findByBrand")
+    public JSONResult findByBrand(String brand,int start,int end) {
+        List<Car> cars = carService.findByBrand(brand,start,end);
+        return JSONResult.ok(cars);
+    }
 }

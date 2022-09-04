@@ -18,4 +18,8 @@ public interface CarService {
     void updateById(Car car);
 
     void insertCar(Car car);
+
+    void buyCar(int id,int num) throws Exception;
+
+    List<Car> findByBrand(String brand, int start, int end);
 }
