@@ -88,9 +88,8 @@ public class CarController {
     }
 
     //购买车辆 购买后车辆减少
-    @PostMapping("buyCar/{id}/{num}")
-    @GetMapping("buyCar")
-    public JSONResult buyCar(String carType, int quantity) {
+    @GetMapping("buyCar/{carType}/{quantity}")
+    public JSONResult buyCar(@PathVariable String carType, @PathVariable Integer quantity) {
         List<Car> typeCars = carService.findByCarType(carType);
         int realQuantity = 0;
         for (int i = 0; i < typeCars.size(); i++){
@@ -112,8 +111,8 @@ public class CarController {
     }
 
     //对品牌车辆模糊查询
-    @GetMapping("findByBrand/{brand}/{start}/{end}")
-    public JSONResult findByBrand(String carName, int pageSize, int pageNumber) {
+    @GetMapping("findByBrand/{carName}/{pageSize}/{pageNumber}")
+    public JSONResult findByBrand(@PathVariable String carName, @PathVariable Integer pageSize, @PathVariable Integer pageNumber) {
         List<Car> cars = carService.findByBrand(carName, (pageNumber - 1) * pageSize, pageSize);
         return JSONResult.ok(cars);
     }
